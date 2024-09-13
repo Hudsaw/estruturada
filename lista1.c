@@ -121,6 +121,29 @@
         printEconomia(media);
     }
 
+    void verificaNum(){
+        int num[10]={}, max=-999, min=999, pmax=0, pmin=0;
+        printf("Digite 10 numeros inteiros\n");
+
+        for (int i = 0; i<10; i++){
+            printf("Digite o numero %d:", i+1); 
+            scanf("%d", &num[i]);
+            if (num[i]>max){
+                max = num[i];
+                pmax = i;
+            }   
+            if (num[i]<min){
+                min = num[i];
+                pmin = i;
+            }
+        }
+        for (int i = 0; i < 10; i++){
+            printf("%d ", num[i]);
+        }
+        printf("\nO valor maximo eh: %d, na posição %d.", max, pmax);
+        printf("\nO valor minimo eh: %d, na posição %d.\n", min, pmin);
+    }
+
     void menu() {
         int escolha;
         do {
@@ -129,6 +152,7 @@
             printf("1. Somar os valores de um intervalo\n");
             printf("2. Verificar economia do automovel\n");
             printf("3. Calcular area da figura\n");
+            printf("4. Verificar maior e menor entre 10 numeros\n");
             printf("0. Sair\n");
             printf("Digite sua escolha: ");
             scanf("%d", &escolha);
@@ -142,6 +166,9 @@
                     break;
                 case 3:
                     calculaArea();
+                    break;
+                case 4:
+                    verificaNum();
                     break;
                 case 0:
                     printf("Saindo...\n");
