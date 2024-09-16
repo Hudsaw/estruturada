@@ -1,6 +1,6 @@
-    #include <stdio.h>
+#include <stdio.h>
 
-    int maiorNota(int a, int b) {
+    int Maior(int a, int b) {
         if (a>b){
             return a;
         }
@@ -21,63 +21,62 @@
         return (soma/cont);
     }
 
-    int ordem(int num[], int tam, int a){
-        for (int i = 0; i < tam - 1; i++) {
-            for (int j = 0; j < tam - 1 - i; j++){
-                if(a){
-                    if (num[j] > num[j + 1]) {
-                        int temp = num[j];
-                        num[j] = num[j + 1];
-                        num[j + 1] = temp;
-                    }
-                } else {
-                    if (num[j] < num[j + 1]) {
+    void ordem(int num[], int tam, int a){
+        printf("\nO vetor original eh: |");
+            for (int i=0; i<tam; i++){
+                printf("%d |", num[i]);
+            }
+            for (int i = 0; i < tam-1; i++) {
+                for (int j = 0; j < tam-1 - i; j++){
+                if (Maior(num[j],num[j + 1]) == num[j]) {
                     int temp = num[j];
                     num[j] = num[j + 1];
                     num[j + 1] = temp;
-                    }
                 }
             }
         }
-    }
-                printf("\nO vetor na ordem crescente eh: |");
-            for (int i=0; i<10; i++){
-            printf("%d |", num[i]); 
+        if(a){
+            printf("\nO vetor na ordem crescente eh: |");
+            for (int i=0; i<tam; i++){
+                printf("%d |", num[i]); 
             }
+            printf("\n");
         }
         else{
             printf("\nO vetor na ordem decrescente eh: |");
-            for (int i=0; i<10; i++){
+            for (int i=tam-1; i>=0; i--){
             printf("%d |", num[i]); 
             }
+            printf("\n");
         }
     }
 
     void funcao1(){
         float notas[3]={0}, maior=0, media=0;
-        printf("Digite as notas para a média");
+        printf("\nDigite as notas para a média\n");
         for (int i=0; i<3; i++){
-            printf("\nDigite a nota%d:", i+1); 
+            printf("Digite a nota %d: ", i+1); 
             scanf("%f", &notas[i]);
         }
         media = mediaTres(notas[0], notas[1], notas[2]);
-        maior = maiorNota(notas[0], notas[1]);
-        maior = maiorNota(maior, notas[2]);
+        maior = Maior(notas[0], notas[1]);
+        maior = Maior(maior, notas[2]);
                 
-        printf("\nA media das 3 notas eh: %f.", media);
-        printf("\nA maior nota eh: %f.\n", maior);
+        printf("\nA media das 3 notas eh: %.2f.", media);
+        printf("\nA maior nota eh: %.2f.\n", maior);
     }
 
     void funcao2(){
         int num[10]={0}, maior=0;
-        printf("Digite até 10 numeros inteiros");
+        printf("\nDigite até 10 numeros inteiros\n");
         for (int i=0; i<10; i++){
-            printf("\nDigite a numero%d:", i+1); 
+            printf("Digite a numero %d: ", i+1); 
             scanf("%d", &num[i]);
-            for (int j=0; j<10; j++){
-                if(num[i]>num[j]){
-                    maior = num[i];
-                }
+            if (i == 0) {
+            maior = num[i];
+            }
+            else{
+                maior = Maior(maior, num[i]);
             }
         }
         printf("\nO maior numero do vetor eh: %d.\n", maior);
@@ -85,13 +84,13 @@
 
     void funcao3(){
         int escolha=0, num[10]={0};
-        printf("Digite até 10 numeros inteiros");
+        printf("\nDigite até 10 numeros inteiros\n");
         for (int i=0; i<10; i++){
-            printf("\nDigite a numero%d:", i+1); 
+            printf("Digite a numero %d: ", i+1); 
             scanf("%d", &num[i]);
         }
         do{
-            printf("\nEscolha o tipo de ordenamento:");
+            printf("\nEscolha o tipo de ordenamento:\n");
             printf("1. Ordem crescente\n");
             printf("2. Ordem decrescente\n");
             printf("0. Sair\n");

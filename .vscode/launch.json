@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Executar C com MSVC",
+        "type": "cppvsdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/lista2.c",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "console": "externalTerminal",
+        "preLaunchTask": "Compilar C com MSVC",
+        "internalConsoleOptions": "neverOpen"
+      }
+    ]
+  }
+  

@@ -1,28 +1,26 @@
 {
+    "version": "2.0.0",
     "tasks": [
-        {
-            "type": "cppbuild",
-            "label": "C/C++: cl.exe arquivo de build ativo",
-            "command": "cl.exe",
-            "args": [
-                "/Zi",
-                "/EHsc",
-                "/nologo",
-                "/Fe${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "${file}"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$msCompile"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "detail": "Tarefa gerada pelo Depurador."
-        }
-    ],
-    "version": "2.0.0"
+      {
+        "label": "Compilar C com MSVC",
+        "type": "shell",
+        "command": "cl.exe",
+        "args": [
+          "/EHsc",
+          "lista2.c"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "options": {
+        "env": {
+        "INCLUDE": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.28.29910/include;",
+        "LIB": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.28.29910/lib/x64;"
+  }
 }
+
+        "problemMatcher": ["$msCompile"]
+      }
+    ]
+  }
