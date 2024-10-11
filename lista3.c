@@ -39,13 +39,21 @@ typedef struct {
     float nota3;
 } AlunoCurso;
 
+typedef struct {
+    int matricula;
+    char nome[50];
+    int codigoDisc;
+    float nota1;
+    float nota2;
+} AlunoDisc;
+
 void funcao1() {
     Compromisso compromisso = {{11, 10, 2024}, {20, 30, 0}, "Reuniao de projeto"};
     printf("Compromisso: %02d/%02d/%d %02d:%02d:%02d - %s\n", 
            compromisso.data.dia, compromisso.data.mes, compromisso.data.ano, 
            compromisso.horario.hora, compromisso.horario.minuto, compromisso.horario.segundo, 
            compromisso.descricao);
-    
+
     printf("Para qual data (DD MM AA) gostaria de alterar?\n");
     scanf("%d %d %d", &compromisso.data.dia, &compromisso.data.mes, &compromisso.data.ano);
 
@@ -53,7 +61,7 @@ void funcao1() {
     scanf("%d %d %d", &compromisso.horario.hora, &compromisso.horario.minuto, &compromisso.horario.segundo);
 
     strcpy(compromisso.descricao, "Reuniao de projeto - Alterado");
-    
+
     printf("Compromisso modificado: %02d/%02d/%d %02d:%02d:%02d - %s\n", 
            compromisso.data.dia, compromisso.data.mes, compromisso.data.ano, 
            compromisso.horario.hora, compromisso.horario.minuto, compromisso.horario.segundo, 
@@ -72,7 +80,7 @@ void funcao2() {
     scanf("%d", &pessoa.idade);
     printf("Digite o endereco (separe com _): ");
     scanf(" %s", pessoa.endereco);
-    
+
     imprimirPessoa(pessoa);
 }
 
@@ -96,12 +104,53 @@ void funcao3() {
     imprimirAlunos(alunos, 5);
 }
 
-void funcao4() {
-    AlunoCurso alunos[5];
-    float media, soma;
-    int i, maiorNota1Index = 0, maiorMediaIndex = 0, menorMediaIndex = 0;
+void Maior(AlunoCurso alunos[], int num){
+    int maior=0;
+    for (int i = 0; i < num; i++) {
+        if (alunos[i].nota1 > maior) {
+            maior = i;
+        }
+    }
+    printf("Aluno com maior nota na primeira prova: %s\n", alunos[maior].nome);
+}
 
-    for (i = 0; i < 5; i++) {
+void MaiorM(AlunoCurso alunos[], int num){
+    int maiorM=0, media=0;
+    for (int i = 0; i < num; i++) {
+        media = (alunos[i].nota1 + alunos[i].nota2 + alunos[i].nota3) / 3;
+        if (media > (alunos[maiorM].nota1 + alunos[maiorM].nota2 + alunos[maiorM].nota3) / 3) {
+            maiorM = i;
+        }
+    printf("Aluno com maior media geral: %s\n", alunos[maiorM].nome);
+    }
+}
+
+void MenorM(AlunoCurso alunos[], int num){
+    int menorM=0, media=0;
+    for (int i = 0; i < num; i++) {
+        media = (alunos[i].nota1 + alunos[i].nota2 + alunos[i].nota3) / 3;
+        if (media > (alunos[menorM].nota1 + alunos[menorM].nota2 + alunos[menorM].nota3) / 3) {
+            menorM = i;
+        }
+    printf("Aluno com menor media geral: %s\n", alunos[menorM].nome);
+    }
+}
+
+void Media (AlunoCurso alunos[], int num){
+    for (int i = 0; i < num; i++) {
+        float media = (alunos[i].nota1 + alunos[i].nota2 + alunos[i].nota3) / 3;
+        printf("Aluno %s - Media: %.2f - %s\n", alunos[i].nome, media, media >= 6.0 ? "Aprovado" : "Reprovado");
+    }
+}
+
+void funcao4() {
+    AlunoCurso alunos[50];
+    int i, num=5;
+
+    printf("Digite quantos alunos tem no curso:");
+    scanf("%d", &num);
+
+    for (i = 0; i < num; i++) {
         printf("Digite a matricula do aluno %d: ", i + 1);
         scanf("%d", &alunos[i].matricula);
         printf("Digite o nome do aluno %d: ", i + 1);
@@ -114,23 +163,38 @@ void funcao4() {
         scanf("%f", &alunos[i].nota3);
     }
 
-    for (i = 0; i < 5; i++) {
-        if (alunos[i].nota1 > alunos[maiorNota1Index].nota1) {
-            maiorNota1Index = i;
-        }
-        media = (alunos[i].nota1 + alunos[i].nota2 + alunos[i].nota3) / 3.0;
-        if (media > (alunos[maiorMediaIndex].nota1 + alunos[maiorMediaIndex].nota2 + alunos[maiorMediaIndex].nota3) / 3.0) {
-            maiorMediaIndex = i;
-        }
-        if (media < (alunos[menorMediaIndex].nota1 + alunos[menorMediaIndex].nota2 + alunos[menorMediaIndex].nota3) / 3.0) {
-            menorMediaIndex = i;
-        }
-        printf("Aluno %s - Media: %.2f - %s\n", alunos[i].nome, media, media >= 6.0 ? "Aprovado" : "Reprovado");
+    Maior(alunos, num);
+    MaiorM(alunos, num);
+    MenorM(alunos, num);
+    Media(alunos, num);
+}
+
+void funcao5() {
+    AlunoDisc alunos[50];
+    float media, soma;
+    int i, num=10;
+
+    printf("Digite quantos alunos tem na disciplina 101 - Estruturada:");
+    scanf("%d", &num);
+
+    for (i = 0; i < num; i++) {
+        alunos[i].codigoDisc = 101;
+        printf("Digite a matricula do aluno %d: ", i + 1);
+        scanf("%d", &alunos[i].matricula);
+        printf("Digite o nome do aluno %d: ", i + 1);
+        scanf(" %s", alunos[i].nome);
+        printf("Digite a nota da primeira prova: ");
+        scanf("%f", &alunos[i].nota1);
+        printf("Digite a nota da segunda prova: ");
+        scanf("%f", &alunos[i].nota2);
     }
 
-    printf("Aluno com maior nota na primeira prova: %s\n", alunos[maiorNota1Index].nome);
-    printf("Aluno com maior media geral: %s\n", alunos[maiorMediaIndex].nome);
-    printf("Aluno com menor media geral: %s\n", alunos[menorMediaIndex].nome);
+    for (i = 0; i < num; i++) {
+
+        float media = ((alunos[i].nota1 + alunos[i].nota2 *2) / 3);
+
+        printf("Aluno %s da disciplina de %d teve media: %.2f - %s\n", alunos[i].nome, alunos[i].codigoDisc, media, media >= 6.0 ? "Aprovado" : "Reprovado");
+    }
 }
 
 void menu() {
@@ -142,6 +206,8 @@ void menu() {
         printf("2. Leitura de dados de uma pessoa\n");
         printf("3. Cadastro de alunos\n");
         printf("4. Notas dos alunos\n");
+        printf("5. Media ponderada dos alunos\n");
+
         printf("0. Sair\n");
         printf("Digite sua escolha: ");
         scanf("%d", &escolha);
@@ -158,6 +224,9 @@ void menu() {
                 break;
             case 4:
                 funcao4();
+                break;
+            case 5:
+                funcao5();
                 break;
             case 0:
                 printf("Saindo...\n");
