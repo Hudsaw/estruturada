@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 typedef struct {
     int hora;
@@ -46,6 +47,29 @@ typedef struct {
     float nota1;
     float nota2;
 } AlunoDisc;
+
+typedef struct {
+    double r;
+    double a;
+} Polar;
+
+typedef struct {
+    double x;
+    double y;
+} Cartesiano;
+
+typedef struct {
+    char nome[50];
+    int idade;
+    char sexo;
+    int cpf;
+    Data dataNasc;
+    int codigo;
+    char cargo [30];
+    float salario;
+} Funcionario;
+
+
 
 void funcao1() {
     Compromisso compromisso = {{11, 10, 2024}, {20, 30, 0}, "Reuniao de projeto"};
@@ -197,6 +221,96 @@ void funcao5() {
     }
 }
 
+Cartesiano polarParaCart (Polar polar){
+    Cartesiano cartesiano;
+    cartesiano.x = polar.r * cos(polar.a);
+    cartesiano.y = polar.r * sin(polar.a);
+    return cartesiano;
+}
+
+void funcao6() {
+    Polar cordPolar;
+    Cartesiano cordCart;
+
+    printf("Digite a coordenada polar (raio argumento): ");
+    scanf("%lf %lf", &cordPolar.r, &cordPolar.a);
+
+    cordCart = polarParaCart (cordPolar);
+
+    printf("Coordenadas cartesianas:\n");
+    printf("x: %.2f\n", cordCart.x);
+    printf("y: %.2f\n", cordCart.y);
+}
+
+void ImprimirFuncionarios(Funcionario funcionario[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("O funcionario %s, do sexo %s, nascido em %02d/%02d/%04d, tem %d anos de idade, inscrito no CPF: %d, trabalha do setor: %d, como %s e recebe R$ %.2f de salario\n", 
+            funcionario[i].nome, funcionario[i].sexo, funcionario[i].dataNasc.dia, funcionario[i].dataNasc.mes, funcionario[i].dataNasc.ano,funcionario[i].idade, funcionario[i].cpf, funcionario[i].codigo, funcionario[i].cargo, funcionario[i].salario);
+    }
+}
+
+void funcao7() {
+    Funcionario funcionario[50];
+    int i, num=10;
+
+    printf("Digite quantos funcionarios gostarias de cadastrar");
+    scanf("%d", &num);
+
+    for (i = 0; i < num; i++) {
+        printf("Digite o nome do funcionario %d (separe com _): ", i + 1);
+        scanf(" %s", funcionario[i].nome);
+        printf("Digite a idade do funcionario %d: ", i + 1);
+        scanf("%d", &funcionario[i].idade);
+        printf("Digite o sexo do funcionario %d (M/F): ", i + 1);
+        scanf(" %s", &funcionario[i].sexo);
+        printf("Digite o CPF do funcionario %d: ", i + 1);
+        scanf("%d", &funcionario[i].cpf);
+        printf("Digite a data de nascimento do funcionario %d (dd mm aaaa): ", i + 1);
+        scanf("%d %d %d", &funcionario[i].dataNasc.dia, &funcionario[i].dataNasc.mes, &funcionario[i].dataNasc.ano);
+        printf("Digite o codigo do setor do funcionario %d: ", i + 1);
+        scanf("%d", &funcionario[i].codigo);
+        printf("Digite o cargo que o funcionario %d ocupa (separe com _): ", i + 1);
+        scanf(" %s", &funcionario[i].cargo); 
+        printf("Digite o salario do funcionario %d: ", i + 1);
+        scanf("%f", &funcionario[i].salario); 
+    }
+
+    ImprimirFuncionarios(funcionario, num);
+}
+
+void ImprimePessoa(Pessoa p[], int n) {
+    
+    for (int i = 0; i < n; i++) {
+    printf("Nome: %s\nEndereco: %s\nTelefone: %d\n", p.nome, p.endereco, p.idade);
+    }
+}
+
+void funcao8() {
+    Pessoa pessoa;
+    int i, num=5;
+
+    printf("Digite quantas pessoas gostarias de cadastrar");
+    scanf("%d", &num);
+
+    for (i = 0; i < num; i++) {
+        printf("Digite o nome da %d° pessoa (separe com _): ", i + 1);
+        scanf(" %s", pessoa[i].nome);
+        printf("Digite o endereco da %d° pessoa (separe com _): ", i + 1);
+        scanf(" %s", &pessoa[i].endereco);
+        printf("Digite o telefone da %d° pessoa: ", i + 1);
+        scanf("%d", &pessoa[i].idade);
+    }
+    ImprimePessoa (pessoa, num);
+}
+
+void funcao9() {
+    return;
+}
+
+void funcao10() {
+    return;
+}
+
 void menu() {
     int escolha;
     do {
@@ -207,7 +321,11 @@ void menu() {
         printf("3. Cadastro de alunos\n");
         printf("4. Notas dos alunos\n");
         printf("5. Media ponderada dos alunos\n");
-
+        printf("6. Coordenadas polares em cartesianas\n");
+        printf("7. Armazenamento de registro\n");
+        printf("8. Impressao em ordem\n");
+        printf("9. Exibir aprovados e reprovados\n");
+        printf("10. Jogo de baralho\n");
         printf("0. Sair\n");
         printf("Digite sua escolha: ");
         scanf("%d", &escolha);
@@ -227,6 +345,21 @@ void menu() {
                 break;
             case 5:
                 funcao5();
+                break;
+            case 6:
+                funcao6();
+                break;
+            case 7:
+                funcao7();
+                break;
+            case 8:
+                funcao8();
+                break;
+            case 9:
+                funcao9();
+                break;
+            case 10:
+                funcao10();
                 break;
             case 0:
                 printf("Saindo...\n");
