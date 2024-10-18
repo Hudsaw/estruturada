@@ -253,7 +253,7 @@ void funcao7() {
     Funcionario funcionario[50];
     int i, num=10;
 
-    printf("Digite quantos funcionarios gostarias de cadastrar");
+    printf("Digite quantos funcionarios gostarias de cadastrar: ");
     scanf("%d", &num);
 
     for (i = 0; i < num; i++) {
@@ -279,28 +279,39 @@ void funcao7() {
 }
 
 void ImprimePessoa(Pessoa p[], int n) {
-    
+    Pessoa temp;
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (strcmp(p[i].nome, p[j].nome) > 0) {
+                temp = p[i];
+                p[i] = p[j];
+                p[j] = temp;
+            }
+        }
+    }
     for (int i = 0; i < n; i++) {
-    printf("Nome: %s\nEndereco: %s\nTelefone: %d\n", p.nome, p.endereco, p.idade);
+    printf("Nome: %s\n", p[i].nome);
+    printf("Endereco: %s\n", p[i].endereco);
+    printf("Telefone: %d\n", p[i].idade);
     }
 }
 
 void funcao8() {
-    Pessoa pessoa;
+    Pessoa pessoas[50];
     int i, num=5;
 
-    printf("Digite quantas pessoas gostarias de cadastrar");
+    printf("Digite quantas pessoas gostarias de cadastrar: ");
     scanf("%d", &num);
 
     for (i = 0; i < num; i++) {
         printf("Digite o nome da %d° pessoa (separe com _): ", i + 1);
-        scanf(" %s", pessoa[i].nome);
+        scanf(" %s", pessoas[i].nome);
         printf("Digite o endereco da %d° pessoa (separe com _): ", i + 1);
-        scanf(" %s", &pessoa[i].endereco);
+        scanf(" %s", &pessoas[i].endereco);
         printf("Digite o telefone da %d° pessoa: ", i + 1);
-        scanf("%d", &pessoa[i].idade);
+        scanf("%d", &pessoas[i].idade);
     }
-    ImprimePessoa (pessoa, num);
+    ImprimePessoa (pessoas, num);
 }
 
 void funcao9() {
