@@ -69,7 +69,11 @@ typedef struct {
     float salario;
 } Funcionario;
 
-
+typedef struct {
+    char nome[50];
+    int matricula;
+    float media;
+} AlunoMedia;
 
 void funcao1() {
     Compromisso compromisso = {{11, 10, 2024}, {20, 30, 0}, "Reuniao de projeto"};
@@ -314,12 +318,40 @@ void funcao8() {
     ImprimePessoa (pessoas, num);
 }
 
-void funcao9() {
-    return;
+void ImprimirAlunoMedia(AlunoMedia alunos[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("Aluno %s, de matrícula %d, tem nota %.1f.\n", 
+            alunos[i].nome, alunos[i].matricula, alunos[i].media);
+    }
 }
 
-void funcao10() {
-    return;
+void funcao9() {
+    AlunoMedia alunos[50], aprovados[50], reprovados[50];
+    int menor=0, maior=0, num=10;
+
+    printf("Digite quantos alunos tem na turma:");
+    scanf("%d", &num);
+
+    for (int i = 0; i < num; i++) {
+        printf("Digite a matricula do aluno %d: ", i + 1);
+        scanf("%d", &alunos[i].matricula);
+        printf("Digite o nome do aluno %d: ", i + 1);
+        scanf(" %s", alunos[i].nome);
+        printf("Digite a nota da media: ");
+        scanf("%f", &alunos[i].media);
+        if (alunos[i].media < 5) {
+            reprovados[menor]=alunos[i];
+            menor++;
+            }
+        else{
+            aprovados[maior]=alunos[i];
+            maior++;
+        }
+    }
+    printf("Os alunos reprovados são:\n");
+    ImprimirAlunoMedia(reprovados, menor);
+    printf("Os alunos aprovados são:\n");
+    ImprimirAlunoMedia(aprovados, maior);
 }
 
 void menu() {
@@ -336,7 +368,6 @@ void menu() {
         printf("7. Armazenamento de registro\n");
         printf("8. Impressao em ordem\n");
         printf("9. Exibir aprovados e reprovados\n");
-        printf("10. Jogo de baralho\n");
         printf("0. Sair\n");
         printf("Digite sua escolha: ");
         scanf("%d", &escolha);
@@ -368,9 +399,6 @@ void menu() {
                 break;
             case 9:
                 funcao9();
-                break;
-            case 10:
-                funcao10();
                 break;
             case 0:
                 printf("Saindo...\n");
